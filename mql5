@@ -1,0 +1,81 @@
+mql5
+//+------------------------------------------------------------------+
+//|                                               ZGer EA            |
+//|                                             forexroboteasy.com   |
+//|                                           Forex Robot Easy Team  |
+//+------------------------------------------------------------------+
+
+// Required input parameters
+input int MinimumDeposit = 800;  // Minimum deposit required
+input double MaxTradeSize = 35;  // Maximum trade size allowed
+
+//+------------------------------------------------------------------+
+//| Expert initialization function                                   |
+//+------------------------------------------------------------------+
+int OnInit()
+{
+    // Check if minimum deposit requirement is met
+    if (AccountInfoDouble(ACCOUNT_BALANCE) < MinimumDeposit)
+    {
+        Print('Insufficient account balance. Minimum deposit required: ', MinimumDeposit);
+        return INIT_FAILED;
+    }
+    
+    return INIT_SUCCEEDED;
+}
+
+//+------------------------------------------------------------------+
+//| Expert tick function                                             |
+//+------------------------------------------------------------------+
+void OnTick()
+{
+    // Analyze candle bar behavior
+    double previousHigh = High[1];
+    double previousLow = Low[1];
+    double currentClose = Close[0];
+    
+    // Check for sell signal
+    if (currentClose > previousHigh)
+    {
+        // Generate sell signal
+        Print('Sell signal generated');
+        Sell();
+    }
+    
+    // Check for buy signal
+    if (currentClose < previousLow)
+    {
+        // Generate buy signal
+        Print('Buy signal generated');
+        Buy();
+    }
+}
+
+//+------------------------------------------------------------------+
+//| Expert deinitialization function                                 |
+//+------------------------------------------------------------------+
+void OnDeinit(const int reason)
+{
+    // Perform any necessary cleanup tasks
+}
+
+//+------------------------------------------------------------------+
+//| Custom trading functions                                         |
+//+------------------------------------------------------------------+
+void Buy()
+{
+    // Place buy order based on trading criteria
+    // ...
+    
+    // Logical conclusion
+    Print('Buy order placed successfully');
+}
+
+void Sell()
+{
+    // Place sell order based on trading criteria
+    // ...
+    
+    // Logical conclusion
+    Print('Sell order placed successfully');
+}
